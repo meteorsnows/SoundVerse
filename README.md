@@ -1,16 +1,13 @@
-# soundverse
+# SoundVerse
 
-All-in-one music app with extensive features
+All-in-one music app with extensive features, comprising of Spotify, soundcloud (future as currently not accepting developer requests to access API), and more in the foreseen future as development prospers.
 
-## Getting Started
+## INSTALL
 
-This project is a starting point for a Flutter application.
+## TODOS
+- Github Actions - Trello Board
+- integrate sdk and ios support
+-- iOS 13.3.1 currently has issue in testing ios applications on th respective physical device. Must keep version of iOS under 13.3 or uprgade to 13.4 (unknown effects of deployment of build; based on testing only).
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## LICENSE
+%%LICENSE%%

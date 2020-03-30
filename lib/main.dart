@@ -1,4 +1,3 @@
-
 import 'dart:typed_data';
 import 'dart:async';
 
@@ -18,7 +17,10 @@ import 'package:spotify_sdk/models/image_uri.dart';
 import 'package:logger/logger.dart';
 //import 'widgets/sized_icon_button.dart';
 
-void main() {
+import 'package:soundverse/spotify.dart';
+
+Future<void> main() async {
+  await DotEnv().load('.env');
   runApp(MyApp());
 }
 
@@ -32,52 +34,100 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: MyHomePage(title: 'SOundeVerse'),
+      home: Home(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+class Dashboard extends StatefulWidget {
+  //Dashboard({Key key}) : super(key: key);
+  final String title = "Overview";
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class _DashboardState extends State<Dashboard> {
+  bool rightHanded = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: DashboardScreen(),
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Overview"),
+        centerTitle: false,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      drawer: rightHanded ? null : AppDrawer(),
+      endDrawer: rightHanded ? AppDrawer() : null,
+      floatingActionButton: FloatingActionButton.extended(
+        elevation: 4.0,
+        icon: const Icon(Icons.add),
+        label: const Text('Add a task'),
+        onPressed: () {},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        child: new Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                //Drawer
+              },
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+    );
+  }
+}
+
+class AppDrawer extends StatefulWidget {
+  @override
+  _AppDrawerState createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer> {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer();
+  }
+}
+
+class DashboardScreen extends StatefulWidget {
+  @override
+  _DashboardScreenState createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  List<String> litems = ["1", "2", "Third", "4"];
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: ListView.builder(
+        itemCount: litems.length,
+        itemBuilder: (BuildContext ctxt, int index) {
+          return Card(
+            elevation: 4.0,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
+              child: Row(
+                children: <Widget>[
+                  Text(litems[index]),
+                  Text(litems[index]),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
